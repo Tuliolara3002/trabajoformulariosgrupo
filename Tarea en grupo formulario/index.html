@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Usuario</title>
+    <!-- Google Icon Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="estilos/estilo.css">
+</head>
+<body>
+    <header class="bg_animate">
+        <div class="header_nav"></div>
+        <div class="burbujas">
+            <!-- Burbujeas -->
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m8 l6 offset-m2 offset-l3">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Información del Usuario</span>
+                            <p><strong>Nombre:</strong> <span id="firstNameDisplay"></span></p>
+                            <p><strong>Apellido:</strong> <span id="lastNameDisplay"></span></p>
+                            <p><strong>Deporte Favorito:</strong> <span id="favoriteSportDisplay"></span></p>
+                            <p><strong>Género:</strong> <span id="genderDisplay"></span></p>
+                            <p><strong>Estado de Residencia:</strong> <span id="stateResidentDisplay"></span></p>
+                            <p><strong>21 años o más:</strong> <span id="ageCheckDisplay"></span></p>
+                            <p><strong>Modelos de Autos:</strong> <span id="carModelsDisplay"></span></p>
+                        </div>
+                        <div class="card-action">
+                            <a href="formulariotulio.html" class="btn waves-effect waves-light">Actualizar Información</a>
+                            <a id="downloadPDF" class="btn waves-effect waves-light">Descargar PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- jsPDF JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstName = localStorage.getItem('firstName') || '';
+            const lastName = localStorage.getItem('lastName') || '';
+            const favoriteSport = localStorage.getItem('favoriteSport') || '';
+            const gender = localStorage.getItem('gender') || '';
+            const stateResident = localStorage.getItem('stateResident') || '';
+            const ageCheck = localStorage.getItem('ageCheck') === 'true' ? 'Sí' : 'No';
+            const carModels = localStorage.getItem('carModels') || '';
+
+            // Mostrar la información en la página
+            document.getElementById('firstNameDisplay').textContent = firstName;
+            document.getElementById('lastNameDisplay').textContent = lastName;
+            document.getElementById('favoriteSportDisplay').textContent = favoriteSport;
+            document.getElementById('genderDisplay').textContent = gender;
+            document.getElementById('stateResidentDisplay').textContent = stateResident;
+            document.getElementById('ageCheckDisplay').textContent = ageCheck;
+            document.getElementById('carModelsDisplay').textContent = carModels;
+        });
+
+        document.getElementById('downloadPDF').addEventListener('click', generatePDF);
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+
+            const doc = new jsPDF();
+            const title = "Información del Usuario";
+            const data = [
+                { label: "Nombre", value: localStorage.getItem('firstName') || '' },
+                { label: "Apellido", value: localStorage.getItem('lastName') || '' },
+                { label: "Deporte Favorito", value: localStorage.getItem('favoriteSport') || '' },
+                { label: "Género", value: localStorage.getItem('gender') || '' },
+                { label: "Estado de Residencia", value: localStorage.getItem('stateResident') || '' },
+                { label: "21 años o más", value: localStorage.getItem('ageCheck') === 'true' ? 'Sí' : 'No' },
+                { label: "Modelos de Autos", value: localStorage.getItem('carModels') || '' }
+            ];
+
+            // Establecer el título
+            doc.setFontSize(18);
+            doc.text(title, 105, 20, null, null, 'center');
+
+            // Establecer estilo de tabla
+            const tableTop = 30;
+            const cellPadding = 10;
+            const cellWidth = 85;
+            const tableWidth = cellWidth * 2;
+            const marginX = (doc.internal.pageSize.getWidth() - tableWidth) / 2;
+
+            // Dibujar tabla
+            data.forEach((item, index) => {
+                const posY = tableTop + index * (cellPadding + 10);
+                
+                // Estilo de las celdas
+                doc.setDrawColor(0); // Color del borde
+                doc.setFillColor(220, 220, 220); // Color de fondo de las etiquetas
+                doc.rect(marginX, posY, cellWidth, cellPadding, 'FD'); // Celda de la etiqueta
+
+                doc.setFillColor(255, 255, 255); // Fondo de los valores
+                doc.rect(marginX + cellWidth, posY, cellWidth, cellPadding, 'FD'); // Celda del valor
+                
+                // Texto de las celdas
+                doc.setTextColor(0, 0, 0); // Color del texto
+                doc.setFontSize(12);
+
+                doc.text(item.label, marginX + 5, posY + cellPadding - 2);
+                doc.text(item.value, marginX + cellWidth + 5, posY + cellPadding - 2);
+            });
+
+            doc.save('informacion_usuario.pdf');
+        }
+    </script>
+</body>
+</html>
