@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Información</title>
+    <!-- Google Icon Font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="estilos/estilo.css">
+</head>
+<body>
+    <header class="bg_animate">
+        <div class="header_nav"></div>
+        <div class="burbujas">
+            <!-- Burbuja Elements -->
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+            <div class="burbuja"></div>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <div class="container">
+            <a href="index.html" class="back-button"><i class="material-icons">arrow_back</i></a>
+            <div class="row">
+                <div class="col s12 m8 l6 offset-m2 offset-l3">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Actualizar Información</span>
+                            <form id="updateForm">
+                                <div class="input-field">
+                                    <input type="text" id="firstName" class="validate">
+                                    <label for="firstName">Nombre:</label>
+                                </div>
+                                <div class="input-field">
+                                    <input type="text" id="lastName" class="validate">
+                                    <label for="lastName">Apellido:</label>
+                                </div>
+                                <div class="input-field">
+                                    <select id="favoriteSport">
+                                        <option value="" disabled selected>Elige tu deporte favorito</option>
+                                        <option value="baloncesto">Baloncesto</option>
+                                        <option value="fútbol">Fútbol</option>
+                                        <option value="fútbol americano">Fútbol americano</option>
+                                        <option value="béisbol">Béisbol</option>
+                                    </select>
+                                    <label for="favoriteSport">Deporte favorito:</label>
+                                </div>
+                                <div class="input-field">
+                                    <p>Género:</p>
+                                    <p>
+                                        <label>
+                                            <input name="gender" type="radio" value="male">
+                                            <span>Masculino</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="gender" type="radio" value="female">
+                                            <span>Femenino</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="gender" type="radio" value="notSure">
+                                            <span>No estoy seguro</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="input-field">
+                                    <select id="stateResident">
+                                        <option value="" disabled selected>Elige tu estado de residencia</option>
+                                        <option value="Kansas">Kansas</option>
+                                        <option value="California">California</option>
+                                        <option value="New York">New York</option>
+                                        <option value="Texas">Texas</option>
+                                    </select>
+                                    <label for="stateResident">Estado de residencia:</label>
+                                </div>
+                                <p>
+                                    <label>
+                                        <input type="checkbox" id="ageCheck">
+                                        <span>21 años o más</span>
+                                    </label>
+                                </p>
+                                <div class="input-field">
+                                    <p>Modelos de autos que posees:</p>
+                                    <div class="car-models-block">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="ford" value="Ford">
+                                                <span>Ford</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="chrysler" value="Chrysler">
+                                                <span>Chrysler</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="toyota" value="Toyota">
+                                                <span>Toyota</span>
+                                            </label>
+                                        </p>
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="nissan" value="Nissan">
+                                                <span>Nissan</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn waves-effect waves-light">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Inicializar elementos de Materialize
+        document.addEventListener('DOMContentLoaded', function() {
+            M.AutoInit();
+        });
+
+        // Cargar la información almacenada en el formulario
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstName = localStorage.getItem('firstName') || '';
+            const lastName = localStorage.getItem('lastName') || '';
+            const favoriteSport = localStorage.getItem('favoriteSport') || '';
+            const gender = localStorage.getItem('gender') || '';
+            const stateResident = localStorage.getItem('stateResident') || '';
+            const ageCheck = localStorage.getItem('ageCheck') === 'true';
+            const carModels = localStorage.getItem('carModels') || '';
+
+            // Prellenar los campos del formulario con la información almacenada
+            document.getElementById('firstName').value = firstName;
+            document.getElementById('lastName').value = lastName;
+            document.getElementById('favoriteSport').value = favoriteSport;
+            document.getElementsByName('gender').forEach(radio => {
+                if (radio.value === gender) radio.checked = true;
+            });
+            document.getElementById('stateResident').value = stateResident;
+            document.getElementById('ageCheck').checked = ageCheck;
+            
+            const carModelsArray = carModels.split(', ');
+            carModelsArray.forEach(model => {
+                if (document.getElementById(model.toLowerCase())) {
+                    document.getElementById(model.toLowerCase()).checked = true;
+                }
+            });
+
+            M.updateTextFields();
+            M.FormSelect.init(document.querySelectorAll('select'));
+        });
+
+        // Guardar la información en localStorage cuando se envíe el formulario
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const favoriteSport = document.getElementById('favoriteSport').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const stateResident = document.getElementById('stateResident').value;
+            const ageCheck = document.getElementById('ageCheck').checked;
+            
+            const carModels = [];
+            document.querySelectorAll('.car-models-block input[type="checkbox"]:checked').forEach(checkbox => {
+                carModels.push(checkbox.value);
+            });
+
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+            localStorage.setItem('favoriteSport', favoriteSport);
+            localStorage.setItem('gender', gender);
+            localStorage.setItem('stateResident', stateResident);
+            localStorage.setItem('ageCheck', ageCheck);
+            localStorage.setItem('carModels', carModels.join(', '));
+
+            window.location.href = 'index.html'; // Redirigir de nuevo a la página principal
+        });
+    </script>
+</body>
+</html>
