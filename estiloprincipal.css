@@ -112,3 +112,54 @@ main {
 .image-box:hover img {
     transform: scale(1.1); /* Efecto de aumento al hacer hover */
 }
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .bg_animate h1 {
+        font-size: 2.5rem; /* Ajusta el tamaño de fuente para pantallas medianas */
+    }
+
+    .bg_animate h2 {
+        font-size: 1.5rem; /* Ajusta el tamaño de fuente para pantallas medianas */
+    }
+
+    .image-box img {
+        width: 150px; /* Ajusta el tamaño de las imágenes para pantallas medianas */
+    }
+}
+
+@media (max-width: 768px) {
+    .bg_animate h1 {
+        font-size: 2rem; /* Ajusta el tamaño de fuente para pantallas pequeñas */
+    }
+
+    .bg_animate h2 {
+        font-size: 1.2rem; /* Ajusta el tamaño de fuente para pantallas pequeñas */
+    }
+
+    .image-box img {
+        width: 120px; /* Ajusta el tamaño de las imágenes para pantallas pequeñas */
+    }
+
+    main {
+        flex-direction: column; /* Coloca las imágenes en una columna en lugar de fila */
+    }
+
+    .image-box {
+        margin: 10px; /* Reduce el margen de las imágenes para pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .bg_animate h1 {
+        font-size: 1.5rem; /* Ajusta el tamaño de fuente para pantallas muy pequeñas */
+    }
+
+    .bg_animate h2 {
+        font-size: 1rem; /* Ajusta el tamaño de fuente para pantallas muy pequeñas */
+    }
+
+    .image-box img {
+        width: 100px; /* Ajusta el tamaño de las imágenes para pantallas muy pequeñas */
+    }
+}
